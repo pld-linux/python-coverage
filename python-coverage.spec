@@ -9,16 +9,20 @@ Source0:	http://pypi.python.org/packages/source/c/coverage/%{module}-%{version}.
 # Source0-md5:	e35935f346eaf5afe5741992cda3a881
 URL:		http://nedbatchelder.com/code/coverage
 BuildRequires:	python-devel
+BuildRequires:	python-setuptools
 BuildRequires:	rpm-pythonprov
 # if py_postclean is used
 BuildRequires:	rpmbuild(macros) >= 1.219
 #Requires:		python-libs
-Requires:		python-modules
+Requires:	python-modules
 #BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Coverage.py is a tool for measuring code coverage of Python programs. It monitors your program, noting which parts of the code have been executed, then analyzes the source to identify code that could have been executed but was not.
+Coverage.py is a tool for measuring code coverage of Python programs.
+It monitors your program, noting which parts of the code have been
+executed, then analyzes the source to identify code that could have
+been executed but was not.
 
 %prep
 %setup -q -n %{module}-%{version}
