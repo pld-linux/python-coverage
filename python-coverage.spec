@@ -2,7 +2,7 @@
 Summary:	Tool for measuring code coverage of Python programs
 Name:		python-%{module}
 Version:	3.2
-Release:	0.1
+Release:	1
 License:	BSD
 Group:		Development/Languages/Python
 Source0:	http://pypi.python.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
@@ -11,11 +11,8 @@ URL:		http://nedbatchelder.com/code/coverage
 BuildRequires:	python-devel
 BuildRequires:	python-setuptools
 BuildRequires:	rpm-pythonprov
-# if py_postclean is used
 BuildRequires:	rpmbuild(macros) >= 1.219
-#Requires:		python-libs
 Requires:	python-modules
-#BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,9 +34,6 @@ rm -rf $RPM_BUILD_ROOT
 	--optimize=2 \
 	--root=$RPM_BUILD_ROOT
 
-# change %{py_sitedir} to %{py_sitescriptdir} for 'noarch' packages!
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_postclean
 
 %clean
@@ -48,9 +42,11 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.txt README.txt
-# change %{py_sitedir} to %{py_sitescriptdir} for 'noarch' packages!
+%attr(755,root,root) %{_bindir}/coverage
+%dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
+%{py_sitedir}/%{module}/htmlfiles
 %if "%{py_ver}" > "2.4"
-#{py_sitedir}/TEMPLATE-*.egg-info
+%{py_sitedir}/coverage-%{version}*.egg-info
 %endif
