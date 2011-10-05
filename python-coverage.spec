@@ -1,12 +1,12 @@
 %define 	module	coverage
 Summary:	Tool for measuring code coverage of Python programs
 Name:		python-%{module}
-Version:	3.2
+Version:	3.5
 Release:	1
 License:	BSD
 Group:		Development/Languages/Python
 Source0:	http://pypi.python.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
-# Source0-md5:	e35935f346eaf5afe5741992cda3a881
+# Source0-md5:	dee158cf20b17f54e644fba25c2ebfc2
 URL:		http://nedbatchelder.com/code/coverage
 BuildRequires:	python-devel
 BuildRequires:	python-setuptools
