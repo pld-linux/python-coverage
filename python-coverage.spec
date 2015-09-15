@@ -2,7 +2,7 @@
 Summary:	Tool for measuring code coverage of Python programs
 Name:		python-%{module}
 Version:	3.7.1
-Release:	4
+Release:	5
 License:	BSD
 Group:		Development/Languages/Python
 Source0:	http://pypi.python.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
@@ -66,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.txt README.txt
-%attr(755,root,root) %{_bindir}/coverage-2.7
+%attr(755,root,root) %{_bindir}/coverage-%{py_ver}
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-%{module}
 %defattr(644,root,root,755)
 %doc CHANGES.txt README.txt
-%attr(755,root,root) %{_bindir}/coverage-3.4
+%attr(755,root,root) %{_bindir}/coverage-%{py3_ver}
 %dir %{py3_sitedir}/%{module}
 %attr(755,root,root) %{py3_sitedir}/%{module}/*.so
 %{py3_sitedir}/%{module}/*.py
