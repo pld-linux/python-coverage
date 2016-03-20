@@ -96,9 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/htmlfiles
-%if "%{py_ver}" > "2.4"
 %{py_sitedir}/coverage-%{version}-py*.egg-info
-%endif
 %endif
 
 %if %{with python3}
