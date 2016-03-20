@@ -7,25 +7,25 @@
 Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
-Version:	3.7.1
-Release:	6
-License:	BSD
+Version:	4.0.3
+Release:	1
+License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.python.org/simple/coverage/
 Source0:	https://pypi.python.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
-# Source0-md5:	c47b36ceb17eaff3ecfab3bcd347d0df
+# Source0-md5:	c7d3db1882484022c81bf619be7b6365
 URL:		http://coverage.readthedocs.org/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
-BuildRequires:	python-devel
+BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	python-setuptools
 %endif
 %if %{with python3}
-BuildRequires:	python3-devel
-BuildRequires:	python3-distribute
+BuildRequires:	python3-devel >= 1:3.3
+BuildRequires:	python3-setuptools
 %endif
-Requires:	python-modules
+Requires:	python-modules >= 1:2.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,7 +44,7 @@ kodu, który mógłby zostać wykonany, ale nie był.
 Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Group:		Development/Languages/Python
-Requires:	python3-modules
+Requires:	python3-modules >= 1:3.3
 
 %description -n python3-%{module}
 Coverage.py is a tool for measuring code coverage of Python programs.
@@ -89,26 +89,28 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc CHANGES.txt README.txt
+%doc AUTHORS.txt CHANGES.rst NOTICE.txt README.rst TODO.txt
+%attr(755,root,root) %{_bindir}/coverage2
 %attr(755,root,root) %{_bindir}/coverage-%{py_ver}
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
 %{py_sitedir}/%{module}/htmlfiles
 %if "%{py_ver}" > "2.4"
-%{py_sitedir}/coverage-%{version}*.egg-info
+%{py_sitedir}/coverage-%{version}-py*.egg-info
 %endif
 %endif
 
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc CHANGES.txt README.txt
+%doc AUTHORS.txt CHANGES.rst NOTICE.txt README.rst TODO.txt
+%attr(755,root,root) %{_bindir}/coverage3
 %attr(755,root,root) %{_bindir}/coverage-%{py3_ver}
 %dir %{py3_sitedir}/%{module}
 %attr(755,root,root) %{py3_sitedir}/%{module}/*.so
 %{py3_sitedir}/%{module}/*.py
 %{py3_sitedir}/%{module}/__pycache__
 %{py3_sitedir}/%{module}/htmlfiles
-%{py3_sitedir}/*.egg-info
+%{py3_sitedir}/coverage-%{version}-py*.egg-info
 %endif
