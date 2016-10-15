@@ -7,13 +7,13 @@
 Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
-Version:	4.0.3
+Version:	4.2
 Release:	1
 License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.python.org/simple/coverage/
-Source0:	https://pypi.python.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
-# Source0-md5:	c7d3db1882484022c81bf619be7b6365
+Source0:	https://files.pythonhosted.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
+# Source0-md5:	1e09362a3f35d589f942359441050a6e
 URL:		http://coverage.readthedocs.org/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -73,14 +73,14 @@ kodu, który mógłby zostać wykonany, ale nie był.
 %install
 rm -rf $RPM_BUILD_ROOT
 
+%if %{with python3}
+%py3_install
+%endif
+
 %if %{with python2}
 %py_install
 
 %py_postclean
-%endif
-
-%if %{with python3}
-%py3_install
 %endif
 
 %clean
@@ -90,6 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS.txt CHANGES.rst NOTICE.txt README.rst TODO.txt
+%attr(755,root,root) %{_bindir}/coverage
 %attr(755,root,root) %{_bindir}/coverage2
 %attr(755,root,root) %{_bindir}/coverage-%{py_ver}
 %dir %{py_sitedir}/%{module}
