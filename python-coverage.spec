@@ -7,13 +7,13 @@
 Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
-Version:	4.2
-Release:	2
+Version:	4.3.4
+Release:	1
 License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.python.org/simple/coverage/
 Source0:	https://files.pythonhosted.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
-# Source0-md5:	1e09362a3f35d589f942359441050a6e
+# Source0-md5:	89759813309185efcf4af8b9f7762630
 URL:		http://coverage.readthedocs.org/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -89,13 +89,13 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS.txt CHANGES.rst NOTICE.txt README.rst TODO.txt
+%doc CHANGES.rst CONTRIBUTORS.txt NOTICE.txt README.rst TODO.txt
 %attr(755,root,root) %{_bindir}/coverage
 %attr(755,root,root) %{_bindir}/coverage2
 %attr(755,root,root) %{_bindir}/coverage-%{py_ver}
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
-%attr(755,root,root) %{py_sitedir}/%{module}/*.so
+%attr(755,root,root) %{py_sitedir}/%{module}/tracer.so
 %{py_sitedir}/%{module}/htmlfiles
 %{py_sitedir}/coverage-%{version}-py*.egg-info
 %endif
@@ -103,11 +103,11 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc AUTHORS.txt CHANGES.rst NOTICE.txt README.rst TODO.txt
+%doc CHANGES.rst CONTRIBUTORS.txt NOTICE.txt README.rst TODO.txt
 %attr(755,root,root) %{_bindir}/coverage3
 %attr(755,root,root) %{_bindir}/coverage-%{py3_ver}
 %dir %{py3_sitedir}/%{module}
-%attr(755,root,root) %{py3_sitedir}/%{module}/*.so
+%attr(755,root,root) %{py3_sitedir}/%{module}/tracer.cpython-*.so
 %{py3_sitedir}/%{module}/*.py
 %{py3_sitedir}/%{module}/__pycache__
 %{py3_sitedir}/%{module}/htmlfiles
