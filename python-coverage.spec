@@ -1,29 +1,49 @@
+# TODO: finish doc and tests (where dependencies available in PLD)
 #
 # Conditional build:
 %bcond_without	python2	# CPython 2.x module
 %bcond_without	python3	# CPython 3.x module
+%bcond_with	doc	# Sphinx documentation
+%bcond_with	tests	# unit tests
 
 %define 	module	coverage
 Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
-Version:	4.3.4
-Release:	2
+Version:	4.5.1
+Release:	1
 License:	Apache v2.0
 Group:		Development/Languages/Python
-#Source0Download: https://pypi.python.org/simple/coverage/
+#Source0Download: https://pypi.org/simple/coverage/
 Source0:	https://files.pythonhosted.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
-# Source0-md5:	89759813309185efcf4af8b9f7762630
+# Source0-md5:	af8a2411aba54e2711a9d2ac0a4c3de2
 URL:		http://coverage.readthedocs.org/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
 BuildRequires:	python-setuptools
+%if %{with tests}
+BuildRequires:	python-flaky >= 3.4.0
+BuildRequires:	python-pytest >= 3.2.5
+BuildRequires:	python-pytest-xdist >= 1.20.1
+%endif
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.3
 BuildRequires:	python3-setuptools
+%if %{with tests}
+BuildRequires:	python-flaky >= 3.4.0
+BuildRequires:	python-pytest >= 3.2.5
+BuildRequires:	python-pytest-xdist >= 1.20.1
+%endif
+%endif
+%if %{with doc}
+BuildRequires:	python-doc8 >= 0.0 # special version git+https://github.com/nedbat/doc8.git#egg=doc8==0.0 ???
+BuildRequires:	python-pyenchant >= 2.0.0
+BuildRequires:	python-sphinxcontrib-spelling >= 4.0.1
+BuildRequires:	python-sphinx_rtd_theme >= 0.2.4
+BuildRequires:	sphinx-pdg-2 >= 1.6.6
 %endif
 Requires:	python-modules >= 1:2.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -64,10 +84,24 @@ kodu, który mógłby zostać wykonany, ale nie był.
 %build
 %if %{with python2}
 %py_build
+
+%if %{with tests}
+%{__python} igor.py test_with_tracer py
+%{__python} igor.py test_with_tracer c
+%endif
 %endif
 
 %if %{with python3}
 %py3_build
+
+%if %{with tests}
+%{__python3} igor.py test_with_tracer py
+%{__python3} igor.py test_with_tracer c
+%endif
+%endif
+
+%if %{with doc}
+sphinx-build -b html -aqE doc doc/_build/html
 %endif
 
 %install
@@ -93,10 +127,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/coverage
 %attr(755,root,root) %{_bindir}/coverage2
 %attr(755,root,root) %{_bindir}/coverage-%{py_ver}
-%dir %{py_sitedir}/%{module}
-%{py_sitedir}/%{module}/*.py[co]
-%attr(755,root,root) %{py_sitedir}/%{module}/tracer.so
-%{py_sitedir}/%{module}/htmlfiles
+%dir %{py_sitedir}/coverage
+%{py_sitedir}/coverage/*.py[co]
+%attr(755,root,root) %{py_sitedir}/coverage/tracer.so
+%{py_sitedir}/coverage/fullcoverage
+%{py_sitedir}/coverage/htmlfiles
 %{py_sitedir}/coverage-%{version}-py*.egg-info
 %endif
 
@@ -106,10 +141,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc CHANGES.rst CONTRIBUTORS.txt NOTICE.txt README.rst TODO.txt
 %attr(755,root,root) %{_bindir}/coverage3
 %attr(755,root,root) %{_bindir}/coverage-%{py3_ver}
-%dir %{py3_sitedir}/%{module}
-%attr(755,root,root) %{py3_sitedir}/%{module}/tracer.cpython-*.so
-%{py3_sitedir}/%{module}/*.py
-%{py3_sitedir}/%{module}/__pycache__
-%{py3_sitedir}/%{module}/htmlfiles
+%dir %{py3_sitedir}/coverage
+%attr(755,root,root) %{py3_sitedir}/coverage/tracer.cpython-*.so
+%{py3_sitedir}/coverage/*.py
+%{py3_sitedir}/coverage/__pycache__
+%{py3_sitedir}/coverage/fullcoverage
+%{py3_sitedir}/coverage/htmlfiles
 %{py3_sitedir}/coverage-%{version}-py*.egg-info
 %endif
