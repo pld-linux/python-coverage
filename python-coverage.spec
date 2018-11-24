@@ -10,19 +10,19 @@
 Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
-Version:	4.5.1
+Version:	4.5.2
 Release:	1
 License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/coverage/
 Source0:	https://files.pythonhosted.org/packages/source/c/coverage/%{module}-%{version}.tar.gz
-# Source0-md5:	af8a2411aba54e2711a9d2ac0a4c3de2
+# Source0-md5:	79b0be880b5a12edb4603855272015c9
 URL:		http://coverage.readthedocs.org/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
-BuildRequires:	python-setuptools
+BuildRequires:	python-setuptools >= 35.0.2
 %if %{with tests}
 BuildRequires:	python-flaky >= 3.4.0
 BuildRequires:	python-pytest >= 3.2.5
@@ -31,7 +31,7 @@ BuildRequires:	python-pytest-xdist >= 1.20.1
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.3
-BuildRequires:	python3-setuptools
+BuildRequires:	python3-setuptools >= 35.0.2
 %if %{with tests}
 BuildRequires:	python-flaky >= 3.4.0
 BuildRequires:	python-pytest >= 3.2.5
