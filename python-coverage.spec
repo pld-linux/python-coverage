@@ -22,7 +22,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.6
-BuildRequires:	python-setuptools >= 35.0.2
+BuildRequires:	python-setuptools >= 1:35.0.2
 %if %{with tests}
 BuildRequires:	python-eventlet >= 0.22.0
 BuildRequires:	python-flaky >= 3.4.0
@@ -38,7 +38,7 @@ BuildRequires:	python-unittest-mixins >= 1.4
 %endif
 %if %{with python3}
 BuildRequires:	python3-devel >= 1:3.3
-BuildRequires:	python3-setuptools >= 35.0.2
+BuildRequires:	python3-setuptools >= 1:35.0.2
 %if %{with tests}
 BuildRequires:	python3-eventlet >= 0.22.0
 BuildRequires:	python3-flaky >= 3.4.0
