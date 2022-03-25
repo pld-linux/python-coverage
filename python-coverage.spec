@@ -11,7 +11,7 @@ Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
 Version:	4.5.4
-Release:	4
+Release:	5
 License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/coverage/
