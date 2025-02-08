@@ -2,7 +2,7 @@
 #
 # Conditional build:
 %bcond_without	python2	# CPython 2.x module
-%bcond_without	python3	# CPython 3.x module
+%bcond_with	python3	# CPython 3.x module (see python3-coverage.spec)
 %bcond_with	doc	# Sphinx documentation
 %bcond_with	tests	# unit tests
 
@@ -12,7 +12,7 @@ Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
 # keep 5.x here for python2 support
 Version:	5.5
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/coverage/
