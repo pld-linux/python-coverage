@@ -12,7 +12,7 @@ Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Name:		python-%{module}
 # keep 5.x here for python2 support
 Version:	5.5
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Development/Languages/Python
 #Source0Download: https://pypi.org/simple/coverage/
@@ -23,7 +23,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
 BuildRequires:	python-devel >= 1:2.7
-BuildRequires:	python-setuptools >= 1:42.0.2
+BuildRequires:	python-setuptools >= 1:44.1.1
 %if %{with tests}
 BuildRequires:	python-eventlet >= 0.25.1
 BuildRequires:	python-flaky >= 3.7.0
@@ -81,6 +81,7 @@ Summary:	Tool for measuring code coverage of Python programs
 Summary(pl.UTF-8):	Narzędzie do szacowania pokrycia kodu programów w Pythonie
 Group:		Development/Languages/Python
 Requires:	python3-modules >= 1:3.5
+Conflicts:	python-coverage < 5.5-3
 
 %description -n python3-%{module}
 Coverage.py is a tool for measuring code coverage of Python programs.
@@ -117,20 +118,21 @@ kodu, który mógłby zostać wykonany, ale nie był.
 %endif
 
 %if %{with doc}
-sphinx-build -b html -aqE doc doc/_build/html
+sphinx-build-3 -b html -aqE doc doc/_build/html
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%if %{with python3}
-%py3_install
-%endif
-
 %if %{with python2}
 %py_install
 
 %py_postclean
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/coverage
+%endif
+
+%if %{with python3}
+%py3_install
 %endif
 
 %clean
@@ -140,7 +142,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGES.rst CONTRIBUTORS.txt NOTICE.txt README.rst
-%attr(755,root,root) %{_bindir}/coverage
 %attr(755,root,root) %{_bindir}/coverage2
 %attr(755,root,root) %{_bindir}/coverage-%{py_ver}
 %dir %{py_sitedir}/coverage
@@ -155,6 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n python3-%{module}
 %defattr(644,root,root,755)
 %doc CHANGES.rst CONTRIBUTORS.txt NOTICE.txt README.rst
+%attr(755,root,root) %{_bindir}/coverage
 %attr(755,root,root) %{_bindir}/coverage3
 %attr(755,root,root) %{_bindir}/coverage-%{py3_ver}
 %dir %{py3_sitedir}/coverage
